@@ -4,7 +4,7 @@
 
 Site completo de uma hamburgueria/steakhouse: seis páginas, cardápio digital com carrinho e **pedido enviado pelo WhatsApp**, reserva de mesa com validação, galeria com visualizador e status "aberto/fechado" calculado ao vivo no horário de São Paulo.
 
-**Ao vivo:** _em breve_
+**Ao vivo:** https://ferro-e-fumaca.vercel.app
 
 ![Página inicial no desktop](docs/screenshots/desktop-inicio.png)
 
