@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ferro & Fumaça — Burger & Grill
 
-## Getting Started
+> **Restaurante fictício — projeto de portfólio.** Nome, endereço, telefone, cardápio e depoimentos são inventados.
 
-First, run the development server:
+Site completo de uma hamburgueria/steakhouse: seis páginas, cardápio digital com carrinho e **pedido enviado pelo WhatsApp**, reserva de mesa com validação, galeria com visualizador e status "aberto/fechado" calculado ao vivo no horário de São Paulo.
+
+**Ao vivo:** _em breve_
+
+![Página inicial no desktop](docs/screenshots/desktop-inicio.png)
+
+| Cardápio no celular | Pedido no celular | Reservas |
+|---|---|---|
+| ![Cardápio](docs/screenshots/mobile-cardapio.png) | ![Gaveta do pedido](docs/screenshots/mobile-pedido.png) | ![Reservas](docs/screenshots/mobile-reservas.png) |
+
+## Recursos
+
+- **Seis abas:** Início, Cardápio, Sobre, Galeria, Reservas, Contato, além de uma página 404 própria.
+- **Cardápio digital:**
+  - 26 itens em 5 categorias;
+  - navegação fixa que acompanha a rolagem;
+  - selos (mais pedido, picante, vegetariano, novo).
+- **Carrinho:**
+  - fica salvo no navegador e permite delivery ou retirada;
+  - calcula taxa e frete grátis a partir de R$ 150;
+  - gera a mensagem do pedido formatada para o WhatsApp.
+- **Reservas:**
+  - horários gerados conforme o funcionamento de cada dia, e segunda-feira (dia fechado) é recusada;
+  - máscara de telefone;
+  - confirmação com código e envio pelo WhatsApp.
+- **Galeria:** filtros e visualizador em tela cheia, com teclado e deslize no celular.
+- **Status "Aberto agora / Fechado":** sempre no fuso de São Paulo, de onde quer que o visitante acesse.
+- **Compartilhamento:** imagem gerada automaticamente para a prévia do link (WhatsApp, LinkedIn), metadados por página e JSON-LD.
+- **Acessibilidade:** navegação por teclado, foco visível, diálogos acessíveis e respeito a "reduzir movimento".
+
+## Stack
+
+Next.js 16 (App Router, páginas estáticas) · React 19 · TypeScript · Tailwind CSS 4 · lucide-react · Vitest · Playwright
+
+## Como rodar
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
+npm test             # testes das regras (Vitest)
+npm run test:e2e     # testes no navegador (Playwright, usa o Microsoft Edge)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como adaptar para um restaurante de verdade
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Todo o conteúdo está separado do código:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Arquivo | O que trocar |
+|---|---|
+| `src/data/site.ts` | nome, endereço, telefone, **número do WhatsApp**, Instagram, horários, taxa de entrega |
+| `src/data/menu.ts` | pratos, preços, descrições, selos e fotos |
+| `src/data/gallery.ts`, `faq.ts`, `testimonials.ts`, `timeline.ts` | galeria, perguntas, depoimentos, história |
+| `scripts/images.manifest.json` | fotos (baixe com `node scripts/fetch-images.mjs`) |
 
-## Learn More
+Com o número do WhatsApp preenchido, pedidos e reservas chegam direto no celular do restaurante.
 
-To learn more about Next.js, take a look at the following resources:
+## Estrutura
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+  app/          páginas, layout, imagem de compartilhamento
+  components/   cabeçalho, carrinho, cardápio, galeria, reservas...
+  data/         conteúdo do restaurante
+  lib/          regras puras e testadas (preço, horários, carrinho, reserva, WhatsApp)
+  hooks/        relógio, rolagem, foco, trava de scroll
+tests/
+  unit/         Vitest
+  e2e/          Playwright
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Créditos
 
-## Deploy on Vercel
+Fotos do [Unsplash](https://unsplash.com) (Licença Unsplash). A lista com o link de cada foto está em [`scripts/images.manifest.json`](scripts/images.manifest.json) (`https://images.unsplash.com/photo-<id>`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Desenvolvido por **Raphael Elias Senhorinho**.

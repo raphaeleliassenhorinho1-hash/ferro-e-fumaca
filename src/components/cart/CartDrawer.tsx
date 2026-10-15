@@ -84,7 +84,7 @@ export function CartDrawer() {
                   return (
                     <li key={line.id} className="flex items-center gap-3">
                       {item.image ? (
-                        <Image src={item.image} alt="" width={56} height={56} className="size-14 shrink-0 object-cover" />
+                        <Image src={item.image} alt="" width={56} height={56} loading="eager" className="size-14 shrink-0 object-cover" />
                       ) : (
                         <span aria-hidden className="grid size-14 shrink-0 place-items-center bg-carvao-3 font-stencil text-xl text-brasa">F&amp;F</span>
                       )}
